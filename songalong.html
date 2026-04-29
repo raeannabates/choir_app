@@ -15,7 +15,7 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #f2efe9;
-            padding-top: 380px;
+            padding-top: var(--header-height);
         }
 
         .header {
@@ -174,8 +174,16 @@
         let fuse;
 
         document.addEventListener('DOMContentLoaded', function() {
+            updateHeaderHeight();
             fetchSongs();
+            window.addEventListener('resize', updateHeaderHeight);
         });
+
+        function updateHeaderHeight() {
+            const header = document.querySelector('.header');
+            const height = header.offsetHeight;
+            document.documentElement.style.setProperty('--header-height', height + 'px');
+        }
 
         async function fetchSongs() {
             const apiKey = 'AIzaSyB_ShIZ__WL6phV8QzBk67WjbP7eJBfVWc'; // Google Sheets API key
