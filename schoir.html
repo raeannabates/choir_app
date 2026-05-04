@@ -135,12 +135,15 @@
         </div>
     </div>
 
+    <div id="footer-placeholder"></div>
+
     <script>
         let fuse;
 
         document.addEventListener('DOMContentLoaded', function() {
             updateHeaderHeight();
             fetchSongs();
+            loadFooter();
             window.addEventListener('resize', updateHeaderHeight);
         });
 
@@ -148,6 +151,15 @@
             const header = document.querySelector('.header');
             const height = header.offsetHeight;
             document.documentElement.style.setProperty('--header-height', height + 'px');
+        }
+
+        function loadFooter() {
+            fetch('footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    const placeholder = document.getElementById('footer-placeholder');
+                    if (placeholder) placeholder.innerHTML = data;
+                });
         }
 
         async function fetchSongs() {
